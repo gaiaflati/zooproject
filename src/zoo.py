@@ -66,7 +66,7 @@ class Animal:
         s:str=  f" Animal(name={self.name},specie={self.species}, age={self.age})"
         return s
     
-class Zookeper:
+class Zookeeper:
     def __init__(self, name: str, surname: str, id: str) -> None:
         self.name=name
         self.surname=surname
@@ -111,14 +111,14 @@ class Zookeper:
                 return tempo    
 
 class Zoo:
-    def __init__(self, fences: list [Fence], zoo_keepers: list [Zookeper]) -> None:
+    def __init__(self, fences: list [Fence], zoo_keepers: list [Zookeeper]) -> None:
         self.fences=fences
         self.zoo_keepers=zoo_keepers
 
     def describe_zoo(self):
         print("Guardians: \n")
-        for zookeper in self.zoo_keepers:
-            print (f"Zookeper(name={zookeper.name}, surname={zookeper.surname}, ID={zookeper.id})")
+        for Zookeeper in self.zoo_keepers:
+            print (f"Zookeeper(name={Zookeeper.name}, surname={Zookeeper.surname}, ID={Zookeeper.id})")
             
         print("Fences: \n")
         for fence in self.fences:
