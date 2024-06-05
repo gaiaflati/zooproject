@@ -43,7 +43,7 @@ class Fence:
         self.area=area
         self.temperature=temperature
         self.habitat=habitat
-        self.list_animals=[]
+        self.animals=[]
         self.area_rimanente=area
         self.area_tot_animals=0
         self.animal: Animal=None
@@ -74,16 +74,16 @@ class Zookeper:
 
     
     def add_animal(self, animal: Animal, fence: Fence):
-        if animal and isinstance(animal, Animal) and animal not in fence.list_animals:
+        if animal and isinstance(animal, Animal) and animal not in fence.animals:
             if animal.area_animal<= fence.area and animal.preferred_habitat==fence.habitat:  
-                fence.list_animals.append(animal)
+                fence.animals.append(animal)
                 fence.area_rimanente = fence.area-animal.area_animal
                 animal.fence=fence
                 fence.area_tot_animals+=animal.area_animal
     
     def remove_animal(self, animal: Animal, fence: Fence):
-        if animal and isinstance(animal, Animal) and animal in fence.list_animals:
-             fence.list_animals.remove(animal)
+        if animal and isinstance(animal, Animal) and animal in fence.animals:
+             fence.animals.remove(animal)
              fence.area+=animal.area_animal
              fence.area_tot_animals-=animal.area_animal
              animal.fence= None
@@ -94,6 +94,7 @@ class Zookeper:
         porzione_area_maggiorata=(animal.height*animal.width) - animal.area_animal
         if porzione_area_maggiorata <= animal.fence.area_rimanente:
             animal.health+= round((animal.health*1)/100, 3)
+            animal.fence.area_rimanente-=porzione_area_maggiorata
             
 
     def clean(self, fence: Fence):
@@ -118,7 +119,7 @@ class Zoo:
         for fence in self.fences:
             print (f"Fence(area={fence.area}, temperature={fence.temperature}, habitat={fence.habitat})" '\n'
                    "with animals: ")
-            for animal in fence.list_animals:
+            for animal in fence.animals:
                 print(animal)
             print("##############################")
 
