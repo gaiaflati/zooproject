@@ -89,12 +89,17 @@ class Zookeper:
              animal.fence= None
 
     def feed(self, animal: Animal):
-        animal.height+= round((animal.height*2/100), 3)
-        animal.width+= round((animal.width*2/100), 3)
-        porzione_area_maggiorata=(animal.height*animal.width) - animal.area_animal
-        if porzione_area_maggiorata <= animal.fence.area_rimanente:
+        w=animal.width
+        h=animal.height
+        h+= round((h*2/100), 3)
+        w+= round((w*2/100), 3)
+        porzione_area_maggiorata=(h*w) - animal.area_animal
+        if porzione_area_maggiorata <= animal.fence.area_rimanente and animal in animal.fence.animals:
             animal.health+= round((animal.health*1)/100, 3)
             animal.fence.area_rimanente-=porzione_area_maggiorata
+            animal.height=h
+            animal.width=w
+
             
 
     def clean(self, fence: Fence):
@@ -124,27 +129,7 @@ class Zoo:
             print("##############################")
 
 
-lorenzo=Zookeper(name='Lorenzo', surname='Maggi', id=1234)
-mondo=Fence(area=100, temperature=25, habitat='Continent')
-luca=Zookeper(name='luca', surname='cavalleri', id=1111)
-leone=Animal(name='leone', species='Blabla', age=34, width=3.4, height=1.5, preferred_habitat="savana")
-savana=Fence(area=50, temperature=35, habitat='savana')
-tigre=Animal(name='tigre', species='felino', age=10, width=4.1, height=1.5, preferred_habitat="savana")
 
-scoiattolo=Animal(name='Scoiattolo', species='Blabla', age=25, width=3.6, height=1.7, preferred_habitat="Continent")
-lorenzo.add_animal(scoiattolo, mondo)
-luca.add_animal(tigre,savana)
-a=Zoo([mondo,savana], [lorenzo,luca])
-luca.add_animal(leone,savana)
-luca.feed(leone)
-print(lorenzo.clean(mondo))
-b=Zoo([savana],[luca])
-
-a.describe_zoo()
-      
-luca.remove_animal(tigre,savana)
-a.describe_zoo()
-            
 
 
 
